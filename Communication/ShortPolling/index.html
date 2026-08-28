@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Polling Example</title>
+</head>
+
+<body>
+    <h1>Short Polling Example</h1>
+    <div id="data-container"></div>
+    <script>
+
+        async function getData() {
+            try {
+                const response = await fetch('/getData');
+                if (!response.ok) {
+                    throw new Error('Error in Network Response')
+                }
+                const data = await response.json();
+                document.getElementById('data-container').innerHTML = data?.data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+        }
+        getData();
+        function shortPolling() {
+            setInterval(() => {
+                getData();
+            }, 2000)
+        }
+        shortPolling();
+    </script>
+
+
+
+</body>
+
+</html>
