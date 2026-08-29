@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io Example</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            padding-bottom: 3rem
+        }
+
+        #form {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 0.25rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex
+        }
+
+        #input {
+            border: 0;
+            padding: 0.5rem;
+            flex-grow: 1;
+        }
+
+        #input:focus {
+            outline: none;
+        }
+
+        #form>button {
+            background: #333;
+            border: none;
+            padding: 0 1rem;
+            color: #fff;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #messages>li {
+            padding: 0.5rem 1rem;
+        }
+
+        #messages>li:nth-child(odd) {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+   <ul id="messages"></ul>
+    <form id="form" action="">
+        <input type="text" id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+     // Make sure to run the server first and then open this HTML file in a browser to see the WebSocket communication in action.
+        const socket=window.io();
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+        socket.on('chat message', (msg)=>{
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+        })
+    </script>
+</body>
+
+</html>
