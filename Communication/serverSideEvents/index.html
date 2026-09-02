@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Side Events</title>
+</head>
+
+<body>
+    <h1>Server Side Events</h1>
+    <div id="sse-data"></div>
+    <script>
+        const eventSource = new EventSource("/sse");
+        eventSource.onmessage = (event) => {
+            const dataDiv = document.getElementById("sse-data");
+            dataDiv.innerHTML += `<p>${event.data}</p>`;
+        };
+
+    </script>
+
+
+
+</body>
+
+</html>
