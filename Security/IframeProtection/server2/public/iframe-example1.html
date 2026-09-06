@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickjacking IFrame</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Child Iframe</h1>
+    <p>Iframe: Click the button below to see a simple clickja
+        iFrame protection 5
+        cking demonstration.</p>
+    <button class="pay-now-button" onclick="alert('clicked iframe button')">Pay Now</button>
+    <script>if (window.self !== window.top) {
+        top.location = window.location;
+    }</script>
+</body>
+
+</html>
